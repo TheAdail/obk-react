@@ -3,7 +3,8 @@ import {
   Text,
   View,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  RefreshControl
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { events, getEvents } from '../config/data';
@@ -14,18 +15,18 @@ class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      refreshing: false
     }
   }
 
-  componentDidMount() {
+  refreshData() {
     return getEvents()
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
-//        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
+          refreshing: false,
           dataSource: responseJson.events,
         }, function() {
           // do something with new state
@@ -34,6 +35,15 @@ class EventList extends Component {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  componentDidMount() {
+    this.refreshData();
+  }
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+    this.refreshData();
   }
 
   onDetails = (event) => {
@@ -50,13 +60,19 @@ class EventList extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }>
         <List>
           {this.state.dataSource.map((event) => (
               <ListItem
                 key={event.id}
                 title={`${event.title}`}
-                subtitle={`${formatDateTime(event.start_date)} - ${formatDateTime(event.end_date)}`}
+                subtitle={`${formatDateTime(event.start)} - ${formatDateTime(event.finish)}    Spots: ${event.spots_left}`}
                 onPress={() => this.onDetails(event)}
               />
             ))

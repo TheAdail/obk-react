@@ -1,9 +1,9 @@
 export const me = {
   "gender": "male",
   "name": {
-    "title": "mr",
-    "first": "lance",
-    "last": "thomas"
+    "title": "Mr",
+    "first": "Lance",
+    "last": "Thomas"
   },
   "location": {
     "street": "6942 first street",
@@ -20,7 +20,8 @@ export const me = {
     "sha1": "4f28fcd2d5e5ae5e0ff55b7528841e350cabf9fb",
     "sha256": "1d44ef3ad01dafe929c56021498d8a6d89b2c438bd3f6a07de777ed35b98b5e1"
   },
-  "dob": "1969-12-14 07:28:16",
+  "dob": "1969-12-14",
+  "gender": "M",
   "registered": "2010-08-09 13:37:38",
   "phone": "(589)-070-0928",
   "cell": "(110)-065-6280",
@@ -76,4 +77,8 @@ export const events = [
 
 export function getEvents() {
   return fetch('http://ec2-54-79-122-110.ap-southeast-2.compute.amazonaws.com/api/events');
+}
+
+export function joinEvent(eventId) {
+  
 }

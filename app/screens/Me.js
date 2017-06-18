@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { Tile, List, ListItem, Button } from 'react-native-elements';
 import { me } from '../config/data';
+import { formatDate } from '../config/utils';
 
 class Me extends Component {
   handleSettingsPress = () => {
@@ -14,15 +15,26 @@ class Me extends Component {
         <Tile
           imageSrc={{ uri: this.props.picture.large}}
           featured
-          title={`${this.props.name.first.toUpperCase()} ${this.props.name.last.toUpperCase()}`}
-          caption={this.props.email}
         />
 
         <Button
-          title="Settings"
+          title="Edit"
           buttonStyle={{ marginTop: 20 }}
           onPress={this.handleSettingsPress}
         />
+
+        <List>
+          <ListItem
+            title="First Name"
+            rightTitle={this.props.name.first}
+            hideChevron
+          />
+          <ListItem
+            title="Last Name"
+            rightTitle={this.props.name.last}
+            hideChevron
+          />
+        </List>
 
         <List>
           <ListItem
@@ -39,21 +51,31 @@ class Me extends Component {
 
         <List>
           <ListItem
-            title="Username"
-            rightTitle={this.props.login.username}
+            title="Working With Children Check No."
+            rightTitle="123456"
+            hideChevron
+          />
+          <ListItem
+            title="WWCCN Status"
+            rightTitle="Confirmed"
+            hideChevron
+          />
+          <ListItem
+            title="WWCCN Expiry Date"
+            rightTitle="15/10/2020"
             hideChevron
           />
         </List>
 
         <List>
           <ListItem
-            title="Birthday"
-            rightTitle={this.props.dob}
+            title="Date of Birth"
+            rightTitle={formatDate(this.props.dob, true)}
             hideChevron
           />
           <ListItem
-            title="City"
-            rightTitle={this.props.location.city}
+            title="Gender"
+            rightTitle={this.props.gender}
             hideChevron
           />
         </List>
