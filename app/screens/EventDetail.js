@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { Text, Tile, List, ListItem } from 'react-native-elements';
+import { formatDateTime } from '../config/utils';
 
-class UserDetail extends Component {
+class EventDetail extends Component {
   render() {
     const { id, title, description, start, finish } = this.props.navigation.state.params;
 
@@ -10,7 +11,7 @@ class UserDetail extends Component {
       <ScrollView>
         <Text style={{fontSize: 20}}>{title}</Text>
         <Text></Text>
-        <Text style={{fontSize: 14}}>{`${start} - ${finish}`}</Text>
+        <Text style={{fontSize: 14}}>{`${formatDateTime(start)} - ${formatDateTime(finish)}`}</Text>
         <Text></Text>
         <Text style={{fontSize: 16}}>{description}</Text>
       </ScrollView>
@@ -18,4 +19,4 @@ class UserDetail extends Component {
   }
 }
 
-export default UserDetail;
+export default EventDetail;

@@ -2,20 +2,20 @@ import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import Feed from '../screens/Feed';
+import EventList from '../screens/EventList';
 import Settings from '../screens/Settings';
-import UserDetail from '../screens/UserDetail';
+import EventDetail from '../screens/EventDetail';
 import Me from '../screens/Me';
 
-export const FeedStack = StackNavigator({
-  Feed: {
-    screen: Feed,
+export const MainStack = StackNavigator({
+  EventList: {
+    screen: EventList,
     navigationOptions: {
       title: 'Events',
     },
   },
   Details: {
-    screen: UserDetail,
+    screen: EventDetail,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.title}`,
     }),
@@ -24,7 +24,7 @@ export const FeedStack = StackNavigator({
 
 export const Tabs = TabNavigator({
   Feed: {
-    screen: FeedStack,
+    screen: MainStack,
     navigationOptions: {
       tabBarLabel: 'Events',
       tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,
